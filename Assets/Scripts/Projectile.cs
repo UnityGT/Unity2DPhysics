@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour {
         Debug.Log(direction);
         rBody.gravityScale = 1;
         rBody.AddForce(direction * -1f * (10f * distance), ForceMode2D.Impulse);
+        Invoke("Clear", 3f);
     }
 
     void Update()
@@ -32,5 +33,11 @@ public class Projectile : MonoBehaviour {
             float distance = Vector2.Distance(finalTouch, initialTouch);
             Throw(directionNormalized, distance);
         }
+    }
+
+    void Clear()
+    {
+        GameObject.FindObjectOfType<Manager>().CheckGameState();
+        Destroy(this.gameObject);
     }
 }
